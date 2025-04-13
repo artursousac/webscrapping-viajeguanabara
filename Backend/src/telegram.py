@@ -1,11 +1,10 @@
 import requests
 
-def enviar_telegram():
+def enviar_telegram(mensagem):
     token = "seu_token_do_bot"
-    chat_id = "seu_chat_id"  # Você pode obter o seu chat_id a partir de conversas com o bot ou usando uma API
-    mensagem = "Olá! Esta é uma mensagem enviada pelo meu script Python."
-
-    url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={mensagem}"
+    chat_id = "seu_chat_id"
+    message = mensagem
+    url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 
     try:
         response = requests.get(url)
@@ -15,6 +14,3 @@ def enviar_telegram():
             print("Falha ao enviar a mensagem:", response.status_code)
     except Exception as e:
         print(f"Erro ao enviar a mensagem: {e}")
-
-# Chama a função para enviar a mensagem no Telegram
-enviar_telegram()
