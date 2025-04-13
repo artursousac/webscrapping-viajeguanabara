@@ -1,25 +1,36 @@
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-# origem e destino deve ser no formato cidade-uf, tudo minúsculo.
+options = Options()
+driver = webdriver.Chrome(options=options)
+
+# Dados da viagem, aonde origem e destino deve ser no modelo cidade-uf e a viagem sendo dd-m-yyyy
 origem = "fortaleza-ce"
 destino = "quixada-ce"
-# Data deve ser no formato dd-m-yyy
-dataViagem = "18-4-2025"
+dataViagem = "19-4-2025"
 
-# URL contendo os parametros necessários do viaje-guanabara e realizando a requisição http
+# URL da busca com os parametros acima
 url = f"https://viajeguanabara.com.br/onibus/{origem}/{destino}?departureDate={dataViagem}&passengers=1:1"
-response = requests.get(url)
+driver.get(url)
 
-# Se a response houver sucesso, analisa o HTML com o BeatifulSoup e extrai os dados necessários.
-if response.status_code == 200:
-    html = response.text
+try:
+    # Espera até que o elemento com as passagens esteja presente
+    passagem = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH, "//app-trip")
+        )
+    )
 
-    soup = BeautifulSoup(html, 'html.parser')
+    if passagem.text.strip():
+        print(f"✅ Passagem existente para o dia {dataViagem}\n{passagem.text}")
+    else:
+        print(f"❌ Nenhuma passagem encontrada para o dia {dataViagem}")
 
-    paragrafo = soup.find('p')
-    print(paragrafo.text)
+except Exception as e:
+    print(f"⚠️ Erro ao carregar a página ou não existe passagem para o dia {dataViagem}:")
 
-# Se não tiver sucesso, informa que houve erro.
-else:
-    print("Erro ao acessar a página:", response.status_code)
+finally:
+    driver.quit()
