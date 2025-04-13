@@ -1,8 +1,6 @@
 import requests
 
-def enviar_telegram(mensagem):
-    token = "seu_token_do_bot"
-    chat_id = "seu_chat_id"
+def enviar_telegram(mensagem, token, chat_id):
     message = mensagem
     url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 

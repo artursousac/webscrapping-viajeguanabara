@@ -4,6 +4,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from telegram import enviar_telegram
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+token_telegram = os.getenv("TOKEN_TELEGRAM")
+chat_id_telegram = os.getenv("CHAT_ID")
 
 def procurar_passagem(origem, destino, dataViagem):
     options = Options()
@@ -22,7 +28,7 @@ def procurar_passagem(origem, destino, dataViagem):
         )
 
         if passagem.text.strip():
-            enviar_telegram(f"✅ Passagem existente para o dia {dataViagem}\n{passagem.text}")
+            enviar_telegram(f"✅ Passagem existente para o dia {dataViagem}\n{passagem.text}", token_telegram, chat_id_telegram)
         else:
             print(f"❌ Nenhuma passagem encontrada para o dia {dataViagem}")
 
