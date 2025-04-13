@@ -14,3 +14,16 @@ def enviar_telegram(mensagem, token, chat_id_1, chat_id_2):
             print(f"Falha ao enviar a mensagem: {response_1, response_2}")
     except Exception as e:
         print(f"Erro ao enviar a mensagem: {e}")
+
+def enviar_telegram_unico(mensagem, token, chat_id_1):
+    message = mensagem
+    url_1 = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id_1}&text={message}"
+
+    try:
+        response_1 = requests.get(url_1)
+        if response_1.status_code == 200:
+            print("Mensagem enviada com sucesso!")
+        else:
+            print(f"Falha ao enviar a mensagem: {response_1}")
+    except Exception as e:
+        print(f"Erro ao enviar a mensagem: {e}")
