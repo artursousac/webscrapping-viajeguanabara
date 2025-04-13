@@ -9,7 +9,8 @@ import os
 
 load_dotenv()
 token_telegram = os.getenv("TOKEN_TELEGRAM")
-chat_id_telegram = os.getenv("CHAT_ID")
+chat_id_telegram_1 = os.getenv("CHAT_ID_1")
+chat_id_telegram_2 = os.getenv("CHAT_ID_2")
 
 def procurar_passagem(origem, destino, dataViagem):
     options = Options()
@@ -28,7 +29,7 @@ def procurar_passagem(origem, destino, dataViagem):
         )
 
         if passagem.text.strip():
-            enviar_telegram(f"✅ Passagem existente para o dia {dataViagem}\n{passagem.text}", token_telegram, chat_id_telegram)
+            enviar_telegram(f"✅ Passagem existente para o dia {dataViagem}\n{passagem.text}", token_telegram, chat_id_telegram_1, chat_id_telegram_2)
         else:
             print(f"❌ Nenhuma passagem encontrada para o dia {dataViagem}")
 
