@@ -34,7 +34,7 @@ def procurar_passagem(origem, destino, dataViagem):
             print(f"❌ Nenhuma passagem encontrada para o dia {dataViagem}")
 
     except Exception as e:
-        print(f"⚠️ Erro ao carregar a página ou não existe passagem para o dia {dataViagem}:")
+        print(f"⚠️ Erro ao carregar a página ou não existe passagem para o dia {dataViagem}")
 
     finally:
         driver.quit()
