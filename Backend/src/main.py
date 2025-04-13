@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import schedule
+from telegram import enviar_telegram
 
 options = Options()
 driver = webdriver.Chrome(options=options)
@@ -27,6 +27,7 @@ try:
 
     if passagem.text.strip():
         print(f"✅ Passagem existente para o dia {dataViagem}\n{passagem.text}")
+        enviar_telegram()
     else:
         print(f"❌ Nenhuma passagem encontrada para o dia {dataViagem}")
 
