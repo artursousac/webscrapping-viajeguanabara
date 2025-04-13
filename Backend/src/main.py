@@ -1,4 +1,5 @@
 from viajeguanabara import procurar_passagem
+from telegram import enviar_telegram
 from datetime import datetime
 import os
 
